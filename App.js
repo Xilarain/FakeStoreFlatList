@@ -20,7 +20,7 @@ const App = () => {
     try {
       const { data: products } = await axios.get('https://fakestoreapi.com/products');
       setAllProducts(products);
-      // Set initial data with 10 items
+
       setData(products.slice(0, INITIAL_LOAD));
       setPage(2);
       setHasMore(products.length > INITIAL_LOAD);
@@ -33,16 +33,16 @@ const App = () => {
     }
   };
 
-  // Remove the reset effect as it causes duplicate data
+
   useEffect(() => {
     fetchProducts();
-  }, []); // Only fetch once on mount
+  }, []); 
 
-  // Handle pagination with delay
+
   const loadMore = async () => {
     if (!loading && hasMore) {
       setLoading(true);
-      // Simulate loading delay
+
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       const startIndex = ((page - 1) * ITEMS_PER_PAGE) + (INITIAL_LOAD - ITEMS_PER_PAGE);
@@ -59,12 +59,12 @@ const App = () => {
     }
   };
 
-  // Initial data fetch
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  // Render each item
+
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Image
@@ -91,7 +91,7 @@ const App = () => {
     <View style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={item => `product-${item.id}`} // More specific key
+        keyExtractor={item => `product-${item.id}`} 
         renderItem={renderItem}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
